@@ -19,20 +19,20 @@ public class UserRowMapper implements RowMapper<UserModel>
 	public UserModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		
-		UserModel login = new UserModel();
+		UserModel user = new UserModel();
 		
-		login.setUserId(rs.getLong("user_id"));
-		login.setFirstName(rs.getString("first_name"));
-		login.setLastName(rs.getString("last_name"));
-		login.setUserName(rs.getString("user_name"));
-		login.setCountryCode(rs.getString("country_code"));
-		login.setPhoneNumber(rs.getString("phone_number"));
-		login.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
-		login.setEmail(rs.getString("email"));
-		login.setRole(rs.getString("role"));
-		login.setGender(rs.getString("gender"));
-		login.setPassword(rs.getString("password_hash"));
-		return login;
+		user.setUserId(rs.getLong("user_id"));
+		user.setFirstName(rs.getString("first_name"));
+		user.setLastName(rs.getString("last_name"));
+		user.setUserName(rs.getString("user_name"));
+		user.setCountryCode(rs.getString("country_code"));
+		user.setPhoneNumber(rs.getString("phone_number"));
+		user.setDateOfBirth(rs.getDate("date_of_birth").toLocalDate());
+		user.setEmail(rs.getString("email"));
+		user.setRole(rs.getString("role"));
+		user.setGender(rs.getString("gender"));
+		user.setPassword(rs.getString("password_hash"));
+		return user;
 	}
 	
 	
