@@ -17,6 +17,9 @@ public class RegistrationService {
     private PasswordEncoder passwordEncoder;
     private RegistrationDao registrationDao;
 
+    
+	Logger logger  = LoggerFactory.getLogger(RegistrationService.class);
+    private OtpService otpService;
     public RegistrationService(PasswordEncoder passwordEncoder, RegistrationDao registrationDao) {
 		super();
 		this.passwordEncoder = passwordEncoder;
@@ -27,7 +30,6 @@ public class RegistrationService {
     public void register(RegistrationRequest request) {
 
 		
-		Logger logger  = LoggerFactory.getLogger(RegistrationService.class);
 
         boolean userExistanceFlag =
                 registrationDao.userExists(
@@ -62,8 +64,18 @@ public class RegistrationService {
                         request.getPassword()
                 );
 
+        
+        
         request.setPassword(encodedPassword);
 
         registrationDao.register(request);
+
+        String otp= otpService.generateOtp();
+        
+        
+        logger.info(" otp for email : {} is {}",request.getEmail(),otp);
+        otpService.saveOtp(request.getEmail(), otp);
+
+        
     }
 }

@@ -43,5 +43,23 @@ public class OtpService {
 
         return String.format("%06d", random.nextInt(1000000));
     }
+    
+    public boolean verifyOtp(String email, String enteredOtp) {
+
+        String storedOtp = getOtp(email);
+
+        if(storedOtp == null) {
+            return false;
+        }
+
+        if(storedOtp.equals(enteredOtp)) {
+
+        		deleteOtp(email);
+
+            return true;
+        }
+
+        return false;
+    }
 	
 }

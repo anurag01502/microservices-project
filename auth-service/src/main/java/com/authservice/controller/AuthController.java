@@ -14,24 +14,27 @@ import com.authservice.dto.RefreshTokenResponse;
 import com.authservice.model.LoginRequest;
 import com.authservice.model.RegistrationRequest;
 import com.authservice.service.LoginService;
+import com.authservice.service.OtpService;
 import com.authservice.service.RegistrationService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/auth/users")
+@RequestMapping("/auth")
 public class AuthController {
 
 	Logger logger  = LoggerFactory.getLogger(AuthController.class);
-
+	private final OtpService otpService;
     private final RegistrationService registrationService;
 	private final LoginService loginService;
    
     
-    public AuthController(RegistrationService registrationService,LoginService loginService)
+    public AuthController(RegistrationService registrationService,LoginService loginService
+    		,OtpService otpService)
     {
-    	this.registrationService =registrationService;
+    	this.otpService = otpService;
+		this.registrationService =registrationService;
     	this.loginService=loginService;
     }
 
@@ -43,7 +46,7 @@ public class AuthController {
         registrationService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("User Registered Successfully");
+                .body("User Registered Please verify Otp");
     }
     
 	@PostMapping("/login")
@@ -57,4 +60,25 @@ public class AuthController {
 
 	    return loginService.refreshToken(request.getRefreshToken());
 	}
+	
+	
+	/*@PostMapping("/verify-otp")
+	public ResponseEntity<String> verifyOtp(@RequestBody OtpRequest otpRequest) {
+
+	    boolean isValid = otpService.verifyOtp(
+	            otpRequest.getEmail(),
+	            otpRequest.getOtp());
+
+	    if (!isValid) {
+	        throw new CustomRuntimeException(
+	                "Invalid or Expired OTP",
+	                HttpStatus.UNAUTHORIZED);
+	    }
+
+	    registrationService.verifyUser(otpRequest.getEmail());
+
+	    otpService.deleteOtp(otpRequest.getEmail());
+
+	    return ResponseEntity.ok("OTP Verified Successfully!");
+	}*/
 }
