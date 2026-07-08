@@ -78,4 +78,15 @@ public class RegistrationService {
 
         
     }
+    @Transactional
+    public void verifyUser(String email) {
+
+        int rowsUpdated = registrationDao.verifyUser(email);
+
+        if (rowsUpdated == 0) {
+            throw new CustomRuntimeException(
+                    "User not found",
+                    HttpStatus.NOT_FOUND);
+        }
+    }
 }

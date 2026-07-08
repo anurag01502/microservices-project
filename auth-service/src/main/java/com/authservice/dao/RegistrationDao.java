@@ -22,12 +22,20 @@ public interface RegistrationDao {
             ?, ?, ?, ?, ?, ?, ?, ?,?,?
         )
         """;
-    
+
+     static final String VERIFY_USER = """
+             UPDATE users
+             SET is_verified = true
+             WHERE email = ?
+             """;
     
      static final String CHECK_USER_EXISTS = """
 SELECT COUNT(*) FROM users WHERE user_name = ?OR email = ?""";
     void register(com.authservice.model.RegistrationRequest request);
     
     public boolean userExists(String username,String email);
+    
+    int verifyUser(String email);
+
 
 }

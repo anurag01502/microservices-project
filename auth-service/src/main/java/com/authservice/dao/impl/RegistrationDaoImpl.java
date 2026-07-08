@@ -44,5 +44,13 @@ public class RegistrationDaoImpl implements RegistrationDao {
 
         return count != null && count > 0;
     }
+
+
+	@Override
+    public int verifyUser(String email) {
+
+
+        return jdbcTemplate.update(VERIFY_USER);
+    }
     
 }

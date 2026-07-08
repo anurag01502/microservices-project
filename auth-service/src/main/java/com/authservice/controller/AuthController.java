@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.authservice.dto.RefreshTokenRequest;
 import com.authservice.dto.RefreshTokenResponse;
+import com.authservice.exception.CustomRuntimeException;
 import com.authservice.model.LoginRequest;
 import com.authservice.model.RegistrationRequest;
 import com.authservice.service.LoginService;
@@ -62,7 +63,7 @@ public class AuthController {
 	}
 	
 	
-	/*@PostMapping("/verify-otp")
+	@PostMapping("/verify-otp")
 	public ResponseEntity<String> verifyOtp(@RequestBody OtpRequest otpRequest) {
 
 	    boolean isValid = otpService.verifyOtp(
@@ -80,5 +81,5 @@ public class AuthController {
 	    otpService.deleteOtp(otpRequest.getEmail());
 
 	    return ResponseEntity.ok("OTP Verified Successfully!");
-	}*/
+	}
 }
