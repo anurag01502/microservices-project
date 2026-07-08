@@ -8,20 +8,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.authservice.dao.RegistrationDao;
+
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class OtpService {
 
     private RedisTemplate<String, String> redisTemplate;
     private static final long OTP_EXPIRY = 5;
+    private RegistrationDao registrationDao;
 
     Logger logger = LoggerFactory.getLogger(getClass());
-	public OtpService(RedisTemplate<String, String> redisTemplate)
+	public OtpService(RedisTemplate<String, String> redisTemplate, RegistrationDao registrationDao)
 	{
 		this.redisTemplate =redisTemplate;
+		this.registrationDao=registrationDao;
 	}
 	
-	
+	@Transactional
     public void saveOtp(String email, String otp) {
 
         redisTemplate.opsForValue().set(
@@ -39,11 +45,12 @@ public class OtpService {
         return otp;
     }
 
+    @Transactional
     public void deleteOtp(String email) {
 
         redisTemplate.delete("OTP:" + email);
     }
-    
+    @Transactional
     public String generateOtp() {
 
         SecureRandom random = new SecureRandom();
@@ -51,6 +58,7 @@ public class OtpService {
         return String.format("%06d", random.nextInt(1000000));
     }
     
+    @Transactional
     public boolean verifyOtp(String email, String enteredOtp) {
 
         String storedOtp = getOtp(email);
@@ -63,6 +71,8 @@ public class OtpService {
         if(storedOtp.equals(enteredOtp)) {
 
         		deleteOtp(email);
+        		
+        		registrationDao.verifyUser(email);
 
             return true;
         }

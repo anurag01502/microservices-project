@@ -21,11 +21,12 @@ public class RegistrationService {
 	Logger logger  = LoggerFactory.getLogger(RegistrationService.class);
     private OtpService otpService;
     public RegistrationService(PasswordEncoder passwordEncoder,
-    		RegistrationDao registrationDao
+    		RegistrationDao registrationDao, OtpService otpService
     		) {
 		super();
 		this.passwordEncoder = passwordEncoder;
 		this.registrationDao = registrationDao;
+		this.otpService=otpService;
 	}
 
     @Transactional
