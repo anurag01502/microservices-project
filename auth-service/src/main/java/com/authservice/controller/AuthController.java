@@ -90,7 +90,7 @@ public class AuthController {
 	public ResponseEntity<String> getOtp(@RequestBody String email)
 	{
 		
-		otpService.getOtp(email);
+		otpService.requestOtp(email);
 		return ResponseEntity.ok("Otp received to your email please verify");
 		
 	}
