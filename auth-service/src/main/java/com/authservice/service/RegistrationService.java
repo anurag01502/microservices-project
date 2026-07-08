@@ -20,7 +20,9 @@ public class RegistrationService {
     
 	Logger logger  = LoggerFactory.getLogger(RegistrationService.class);
     private OtpService otpService;
-    public RegistrationService(PasswordEncoder passwordEncoder, RegistrationDao registrationDao) {
+    public RegistrationService(PasswordEncoder passwordEncoder,
+    		RegistrationDao registrationDao
+    		) {
 		super();
 		this.passwordEncoder = passwordEncoder;
 		this.registrationDao = registrationDao;
@@ -37,7 +39,10 @@ public class RegistrationService {
                         request.getEmail()
                 );
 
+        
         if (userExistanceFlag) {
+        	
+        	
 
             throw new CustomRuntimeException(
                     "User with the credentials already exists!",

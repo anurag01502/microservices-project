@@ -84,4 +84,14 @@ public class AuthController {
 
 	    return ResponseEntity.ok("OTP Verified Successfully!");
 	}
+	
+	
+	@PostMapping("/request-otp")	
+	public ResponseEntity<String> getOtp(@RequestBody String email)
+	{
+		
+		otpService.getOtp(email);
+		return ResponseEntity.ok("Otp received to your email please verify");
+		
+	}
 }

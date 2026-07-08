@@ -3,8 +3,11 @@ package com.authservice.service;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class OtpService {
@@ -12,6 +15,7 @@ public class OtpService {
     private RedisTemplate<String, String> redisTemplate;
     private static final long OTP_EXPIRY = 5;
 
+    Logger logger = LoggerFactory.getLogger(getClass());
 	public OtpService(RedisTemplate<String, String> redisTemplate)
 	{
 		this.redisTemplate =redisTemplate;
@@ -29,7 +33,10 @@ public class OtpService {
     
     public String getOtp(String email) {
 
-        return redisTemplate.opsForValue().get("OTP:" + email);
+        String otp=  redisTemplate.opsForValue().get("OTP:" + email);
+        logger.info("otp for email {} is {} ",email,otp);
+        
+        return otp;
     }
 
     public void deleteOtp(String email) {
@@ -48,6 +55,7 @@ public class OtpService {
 
         String storedOtp = getOtp(email);
 
+ 
         if(storedOtp == null) {
             return false;
         }

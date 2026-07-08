@@ -32,6 +32,7 @@ public class UserRowMapper implements RowMapper<UserModel>
 		user.setRole(rs.getString("role"));
 		user.setGender(rs.getString("gender"));
 		user.setPassword(rs.getString("password_hash"));
+		user.setIsVerified(rs.getBoolean(("is_verified")));
 		return user;
 	}
 	

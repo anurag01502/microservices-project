@@ -50,7 +50,19 @@ public class UserModel {
     @Column(name = "gender")
     private String gender;
 
-    public Long getUserId() {
+    
+    @Column(name="is_verified")
+    private Boolean isVerified;
+    
+    public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public Long getUserId() {
 		return userId;
 	}
 
