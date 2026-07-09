@@ -4,14 +4,14 @@ package com.authservice.dao;
 public interface UserDao {
 	 static final String FIND_BY_USERNAME = """
 	            SELECT user_id,first_name,last_name,user_name,,date_of_birth,, phone_number,  country_code,gender,role,email, role,password_hash 
-	            FROM users
+	           ,is_verified FROM users
 	            WHERE user_name = ?
 	            """;
 
 		
 		static final String FIND_BY_IDENTIFIER ="""
 SELECT user_id,first_name,last_name,user_name,date_of_birth ,country_code,gender,role, phone_number,email, role,password_hash 
-	            FROM users
+	        ,is_verified       FROM users
 	            WHERE user_name = ? or email= ? or phone_number=?
 	            """; 
 		

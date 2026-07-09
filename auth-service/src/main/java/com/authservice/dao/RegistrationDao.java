@@ -25,7 +25,7 @@ public interface RegistrationDao {
 
      static final String VERIFY_USER = """
              UPDATE users
-             SET is_verified = true
+             SET is_verified = 1
              WHERE email = ?
              """;
     

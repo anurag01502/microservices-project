@@ -50,7 +50,7 @@ public class RegistrationDaoImpl implements RegistrationDao {
     public int verifyUser(String email) {
 
 
-        return jdbcTemplate.update(VERIFY_USER);
+        return jdbcTemplate.update(VERIFY_USER,email);
     }
     
 }
