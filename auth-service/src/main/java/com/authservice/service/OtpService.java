@@ -1,6 +1,5 @@
 package com.authservice.service;
 
-import java.net.http.HttpRequest;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 
